@@ -7,15 +7,19 @@ export default  gql`
      }
     type Mutation {
        createPost(data: CreatePost): Boolean!
+       updatePost(data:UpdatePost, id:String!):Boolean!
      }
 
      input CreatePost {
       title:String!
-      userId: String!
       body: String!
       description:String!
      }
-
+     input UpdatePost{
+      title:String
+      body:String
+      description:String
+     }
      input filterInput {
       value:String
       field:String
@@ -27,7 +31,7 @@ export default  gql`
      }
 
      type Post {
-      id: String
+      _id: String
       title:String
       userId: String
       body: String

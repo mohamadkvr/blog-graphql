@@ -28,7 +28,15 @@ class PostServices{
     }
     return true
   }
-
+   
+  async update (id:string,data):Promise<boolean> {
+    try {
+     await postSchema.updateOne({_id:new ObjectId(id)},{$set: data}) 
+    } catch (error) {
+      throw error
+    }
+    return true
+  }
   async find( pagination:Pagination,filter:Filter) {
     let limit = 10
     let skip  = 0

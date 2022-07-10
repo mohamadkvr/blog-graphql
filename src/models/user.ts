@@ -1,4 +1,5 @@
 import {client, dbName} from '../config/mongo'
+import { ObjectId } from 'mongodb'
 import user from '../schema/user'
 const userSchema = client.db(dbName).collection('users')
 interface User {
@@ -28,12 +29,7 @@ class UserService {
   }
 
   async findOneAndId(id: string): Promise<any> {
-    return await userSchema.aggregate( [
-      {
-        $match: { _id: id }
-     }, 
-      { $project : {password: 0} } 
-    ] )
+    return await userSchema.findOne({_id:new ObjectId(id)})
   }
 
   async updateUser(id: string, data:User): Promise<boolean> {

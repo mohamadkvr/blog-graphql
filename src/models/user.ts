@@ -3,19 +3,21 @@ import { ObjectId } from 'mongodb'
 import user from '../schema/user'
 const userSchema = client.db(dbName).collection('users')
 interface User {
-  id?: string
-  name?: string
-  lastName?: string
-  gender?: "male" | "female"
-  email?: string
-  degreeOfEducation?: string
+  _id?: string
+  name: string
+  lastName: string
+  gender: "male" | "female"
+  email: string
+  degreeOfEducation: string
   field?: string[]
   birthDate?: Date
+  password?:string
 }
 
+interface SignUpInput{name: string, email:string, password:string}
 
-class UserService {
-  async createUser(data:User):Promise<boolean> {
+export class UserService {
+  async createUser(data):Promise<boolean> {
     try {
       await userSchema.insertOne(data)
     } catch (error) {
@@ -24,7 +26,7 @@ class UserService {
     return true
   }
 
-  async findOne(data:User): Promise<any> {
+  async findOne(data): Promise<any> {
     return await userSchema.findOne({email:data.email})
   }
 
@@ -43,4 +45,3 @@ class UserService {
 
 }
 
-export default new UserService()

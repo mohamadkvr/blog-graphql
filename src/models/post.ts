@@ -9,18 +9,22 @@ type Filter = {field:string,value:string}
 interface Post {
   id? : string,
   title:string,
-  userId?: string
-  body?: string
+  userId: string
+  body: string
   likes?: string[]
   dislike?: string[]
   description: string
-  view: number
-  createAt?: Date
+  view?: number
+  createAt: Date
 }
 
-
-class PostServices{
-  async createPost(data:Post) :Promise<boolean>  {
+interface CreatePost {
+  title:string
+  body:string
+  description: string
+}
+export class PostServices{
+  async createPost(data:CreatePost) :Promise<boolean>  {
     try {
       await postSchema.insertOne(data)
     } catch (error) {
@@ -65,4 +69,3 @@ class PostServices{
   }
 }
 
-export default new PostServices()
